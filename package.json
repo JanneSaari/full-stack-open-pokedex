@@ -8,7 +8,8 @@
     "start-prod": "node app.js",
     "test": "jest",
     "eslint": "eslint \"./**/*.{js,jsx}\"",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "test:e2e": "cypress run ./test/Pokedex.cy.js"
   },
   "repository": {
     "type": "git",
@@ -48,10 +49,12 @@
   },
   "dependencies": {
     "axios": "^1.6.5",
+    "cypress": "^13.6.6",
     "express": "^4.18.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.21.1"
+    "react-router-dom": "^6.21.1",
+    "save-dev": "^0.0.1-security"
   },
   "jest": {
     "testEnvironment": "jsdom"
