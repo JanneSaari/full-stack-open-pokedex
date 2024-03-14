@@ -8,11 +8,11 @@ on:
 jobs:
   a_test_job:
     runs-on: ubuntu-20.04
+    env:
+      SHOULD_SKIP: ${{contains(join(toJson(github.event.commits.*.message)), '#skip')}}
     steps:
       - uses: actions/checkout@v4
       - name: check if should skip
-        env:
-          SHOULD_SKIP: ${{contains(join(toJson(github.event.commits.*.message)), '#skip')}}
         run: echo "$SHOULD_SKIP"
       - name: github context
         if: ${{ ! env.SHOULD_SKIP }}
