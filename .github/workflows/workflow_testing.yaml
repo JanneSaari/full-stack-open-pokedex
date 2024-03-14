@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: check if should skip
-        run: echo "$SKIP_DEPLOY"
+        run: echo ${{ github.event_name == 'push' && !env.SKIP_DEPLOY}}
       - name: github context
         if: ${{ ! env.SKIP_DEPLOY }}
         env:
