@@ -15,7 +15,7 @@ jobs:
       - name: check if should skip
         run: echo ${{ github.event_name == 'push' && !env.SKIP_DEPLOY}}
       - name: github context
-        if: ${{ ! env.SKIP_DEPLOY }}
+        if: ${{ github.event_name == 'push' && !env.SKIP_DEPLOY}}
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
