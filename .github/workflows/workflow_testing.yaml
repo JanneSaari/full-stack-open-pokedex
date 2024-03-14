@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: check if should skip
         env:
-          SHOULD_SKIP: ${{contains(toJson(github.event.commits.*.message), "#skip")}}
+          SHOULD_SKIP: ${{contains(join(toJson(github.event.commits.*.message)), '#skip')}}
         run: echo "$SHOULD_SKIP"
       - name: github context
         env:
