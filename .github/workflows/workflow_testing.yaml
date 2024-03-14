@@ -1,29 +1,31 @@
-name: Testing stuff -testing
+name: Testing stuff
 
 on:
   push:
     branches:
       - workflow-testing
+env:
+  SKIP_DEPLOY: ${{contains(join(toJson(github.event.commits.*.message)), '#skip')}}
 
 jobs:
   a_test_job:
     runs-on: ubuntu-20.04
-    env:
-      SHOULD_SKIP: ${{contains(join(toJson(github.event.commits.*.message)), '#skip')}}
     steps:
       - uses: actions/checkout@v4
       - name: check if should skip
-        run: echo "$SHOULD_SKIP"
+        run: echo "$SKIP_DEPLOY"
       - name: github context
-        if: ${{ ! env.SHOULD_SKIP }}
+        if: ${{ ! env.SKIP_DEPLOY }}
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
       - name: commits
+        if: ${{ ! env.SKIP_DEPLOY }}
         env:
           COMMITS: ${{ toJson(github.event.commits) }}
         run: echo "$COMMITS"
       - name: commit messages
+        if: ${{ ! env.SKIP_DEPLOY }}
         env:
           COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
         run: echo "$COMMIT_MESSAGES"
