@@ -15,6 +15,7 @@ jobs:
           SHOULD_SKIP: ${{contains(join(toJson(github.event.commits.*.message)), '#skip')}}
         run: echo "$SHOULD_SKIP"
       - name: github context
+        if: ${{ ! env.SHOULD_SKIP }}
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
