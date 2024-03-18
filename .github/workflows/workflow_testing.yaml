@@ -16,7 +16,7 @@ jobs:
       - name: Print bool values
         run: echo ${{ github.event_name == 'push'}} && echo ${{!contains(join(toJson(github.event.commits.*.message)), '#skip')}}
       - name: check if should skip
-        run: echo ${{ github.event_name == 'push' && ${{!contains(join(toJson(github.event.commits.*.message)), '#skip')}} }}
+        run: echo ${{ github.event_name == 'push' && !contains(join(toJson(github.event.commits.*.message)), '#skip') }}
       - name: github context
         if: ${{ github.event_name == 'push' && !env.SKIP_DEPLOY}}
         env:
