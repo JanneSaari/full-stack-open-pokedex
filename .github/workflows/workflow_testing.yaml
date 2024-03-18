@@ -1,12 +1,9 @@
-name: Testing stuff
+name: Testing stuff -test
 
 on:
   push:
     branches:
       - workflow-testing
-env:
-  SKIP_DEPLOY: ${{contains(join(toJson(github.event.commits.*.message)), '#skip')}}
-  IS_PUSH:  ${{ github.event_name == 'push' }}
 
 jobs:
   a_test_job:
